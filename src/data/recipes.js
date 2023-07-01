@@ -1,5 +1,7 @@
+import { v4 as uuid } from "uuid";
 export const recipe = [
   {
+    id: uuid(),
     cuisine: "Indian",
     title: "Chicken Curry",
     image:
@@ -34,6 +36,7 @@ export const recipe = [
     ],
   },
   {
+    id: uuid(),
     cuisine: "Italian",
     title: "Spaghetti",
     image:

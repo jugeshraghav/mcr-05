@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "../App.css";
 export const RecipeCard = ({ recipe }) => {
-  const { cuisine, title, image } = recipe;
+  const { id, cuisine, title, image } = recipe;
   const getStyle = ({ isActive }) => {
     return {
       textDecoration: "none",
@@ -20,13 +20,13 @@ export const RecipeCard = ({ recipe }) => {
         </div>
         <div>
           <p className="recipe-sub-title">Ingredients :</p>
-          <NavLink style={getStyle} to={`/recipe/${title}`}>
+          <NavLink style={getStyle} to={`/recipe/${id}`}>
             <p className="recipe-card-links-to-recipe">See Recipe</p>
           </NavLink>
         </div>
         <div>
           <p className="recipe-sub-title">Instructions:</p>
-          <NavLink style={getStyle} to={`/recipe/${title}`}>
+          <NavLink style={getStyle} to={`/recipe/${id}`}>
             <p className="recipe-card-links-to-recipe">See Recipe</p>
           </NavLink>
         </div>
