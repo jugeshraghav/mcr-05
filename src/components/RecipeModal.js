@@ -1,24 +1,39 @@
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 import "../App.css";
 import { useRecipe } from "../contexts/RecipeContext";
+const recipeInitialDetails = {
+  cuisine: "",
+  title: "",
+  image: "",
+  ingredients: [],
+  instructions: [],
+};
 export const RecipeModal = ({ recipe, show, onClose }) => {
-  const { editRecipeHandler } = useRecipe;
+  const { dispatch } = useRecipe();
   const [updatedRecipe, setUpdatedRecipe] = useState(
-    recipe
-      ? recipe
-      : {
-          cuisine: "",
-          title: "",
-          ingredients: "",
-          instructions: "",
-        }
+    recipe || recipeInitialDetails
   );
+  const createRecipeHandler = (updatedRecipe) => {
+    if (recipe) {
+      console.log(updatedRecipe);
+      dispatch({ type: "edit_recipe", payLoad: { ...updatedRecipe } });
+    } else {
+      dispatch({
+        type: "add_recipe",
+        payLoad: { ...updatedRecipe, id: uuid() },
+      });
+    }
+    onClose();
+    setUpdatedRecipe(recipeInitialDetails);
+  };
+
   return (
     <>
       {show && (
         <div className="modal-container" onClick={onClose}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <p>Recipe</p>
+            <p>{recipe ? "Edit Recipe" : "Create Recipe"}</p>
             <div>
               <p>Cuisine</p>
               <input
@@ -31,6 +46,7 @@ export const RecipeModal = ({ recipe, show, onClose }) => {
                   }))
                 }
                 placeholder="Enter Cuisine name"
+                required
               />
             </div>
             <div>
@@ -45,6 +61,22 @@ export const RecipeModal = ({ recipe, show, onClose }) => {
                   }))
                 }
                 placeholder="Enter name of recipe"
+                required
+              />
+            </div>
+            <div>
+              <p>Image URL</p>
+              <input
+                type="text"
+                value={updatedRecipe?.image}
+                onChange={(e) =>
+                  setUpdatedRecipe((pre) => ({
+                    ...pre,
+                    image: e.target.value,
+                  }))
+                }
+                placeholder="Enter image URL"
+                required
               />
             </div>
             <div>
@@ -56,10 +88,11 @@ export const RecipeModal = ({ recipe, show, onClose }) => {
                 onChange={(e) =>
                   setUpdatedRecipe((pre) => ({
                     ...pre,
-                    ingredients: e.target.value,
+                    ingredients: e.target.value.split(","),
                   }))
                 }
                 placeholder="Enter some Ingredients"
+                required
               ></textarea>
             </div>
             <div>
@@ -71,15 +104,17 @@ export const RecipeModal = ({ recipe, show, onClose }) => {
                 onChange={(e) =>
                   setUpdatedRecipe((pre) => ({
                     ...pre,
-                    instructions: e.target.value,
+                    instructions: e.target.value.split("/n"),
                   }))
                 }
                 placeholder="Enter Some Instructions"
+                required
               ></textarea>
             </div>
             <div>
-              <button>Edit</button>
-              <button>Create</button>
+              <button onClick={() => createRecipeHandler(updatedRecipe)}>
+                {recipe ? "Edit" : "Create"}
+              </button>
               <button onClick={onClose}>Cancel</button>
             </div>
           </div>

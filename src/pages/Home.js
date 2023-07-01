@@ -2,6 +2,8 @@ import { RecipeCard } from "../components/RecipeCard";
 import { useRecipe } from "../index";
 import "../App.css";
 import { useState } from "react";
+import { AiFillPlusCircle } from "react-icons/ai";
+import { RecipeModal } from "../components/RecipeModal";
 
 export const Home = () => {
   const {
@@ -14,6 +16,7 @@ export const Home = () => {
   // state variables
   const [inputSearchText, setInputSearchText] = useState("");
   const [selectedRadioText, setSelectedRadioText] = useState("name");
+  const [showModalRecipe, setShowModalRecipe] = useState(false);
 
   const handleInputSearch = (e) => {
     setInputSearchText(e.target.value);
@@ -28,6 +31,10 @@ export const Home = () => {
   console.log(state);
   return (
     <>
+      <RecipeModal
+        show={showModalRecipe}
+        onClose={() => setShowModalRecipe(false)}
+      />
       <div className="filter-container">
         <input
           type="text"
@@ -76,6 +83,10 @@ export const Home = () => {
         {state?.allRecipes?.map((recipe) => (
           <RecipeCard recipe={recipe} key={recipe.id} />
         ))}
+        <AiFillPlusCircle
+          style={{ fontSize: "30px" }}
+          onClick={() => setShowModalRecipe(true)}
+        />
       </div>
     </>
   );

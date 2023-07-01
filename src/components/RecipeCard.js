@@ -3,8 +3,10 @@ import "../App.css";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useState } from "react";
 import { RecipeModal } from "./RecipeModal";
+import { useRecipe } from "../contexts/RecipeContext";
 
 export const RecipeCard = ({ recipe }) => {
+  const { dispatch } = useRecipe();
   const { id, cuisine, title, image } = recipe;
   const [showModal, setShowModal] = useState(false);
 
@@ -14,7 +16,10 @@ export const RecipeCard = ({ recipe }) => {
       color: "black",
     };
   };
-  console.log(cuisine);
+  // console.log(cuisine);
+  const deletRecipeHandler = (recipeToBeDeleted) => {
+    dispatch({ type: "delete_recipe", payLoad: recipe });
+  };
   return (
     <>
       <RecipeModal
@@ -46,7 +51,10 @@ export const RecipeCard = ({ recipe }) => {
             className="recipe-card-icon"
             onClick={() => setShowModal(true)}
           />
-          <AiFillDelete className="recipe-card-icon" />
+          <AiFillDelete
+            className="recipe-card-icon"
+            onClick={() => deletRecipeHandler(recipe)}
+          />
         </section>
       </div>
     </>

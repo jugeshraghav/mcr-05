@@ -9,6 +9,7 @@
 /***************HOme********************/
 .all-recipe-container {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
   margin: 2rem 0;
