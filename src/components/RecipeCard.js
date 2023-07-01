@@ -1,7 +1,13 @@
 import { NavLink } from "react-router-dom";
 import "../App.css";
+import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { useState } from "react";
+import { RecipeModal } from "./RecipeModal";
+
 export const RecipeCard = ({ recipe }) => {
   const { id, cuisine, title, image } = recipe;
+  const [showModal, setShowModal] = useState(false);
+
   const getStyle = ({ isActive }) => {
     return {
       textDecoration: "none",
@@ -11,6 +17,11 @@ export const RecipeCard = ({ recipe }) => {
   console.log(cuisine);
   return (
     <>
+      <RecipeModal
+        recipe={recipe}
+        show={showModal}
+        onClose={() => setShowModal(false)}
+      />
       <div className="recipe-card-container">
         <img src={image} alt={cuisine} />
         <p className="recipe-title">{title}</p>
@@ -30,7 +41,13 @@ export const RecipeCard = ({ recipe }) => {
             <p className="recipe-card-links-to-recipe">See Recipe</p>
           </NavLink>
         </div>
-        <div className="recipe-card-icons-container"></div>
+        <section className="recipe-card-icons-container">
+          <AiFillEdit
+            className="recipe-card-icon"
+            onClick={() => setShowModal(true)}
+          />
+          <AiFillDelete className="recipe-card-icon" />
+        </section>
       </div>
     </>
   );

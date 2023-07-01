@@ -46,6 +46,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  position: relative;
 }
 
 .recipe-card-container img {
@@ -121,4 +122,52 @@
 .single-recipe-content-inner-div {
   display: flex;
   gap: 1rem;
+}
+.recipe-card-icons-container {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.recipe-card-icon {
+  font-size: 20px;
+}
+.recipe-card-icon:hover {
+  cursor: pointer;
+  color: green;
+}
+/* Modal */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(1, 1, 1, 0.5);
+  z-index: 10;
+}
+.modal {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: white;
+  padding: 1rem;
+  text-align: left;
+}
+
+.modal input,
+textarea {
+  width: 80%;
+  padding: 0.5rem;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+.modal button {
+  width: 80px;
+  padding: 0.5rem 1rem;
 }

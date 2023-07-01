@@ -17,20 +17,25 @@ const reducer = (state, action) => {
     case "filter_recipes":
       return {
         ...state,
-        allRecipes: state?.allRecipes?.filter((recipe) =>
-          state.radioText === "name"
-            ? recipe.title.toLowerCase().includes(payLoad.toLowerCase())
-            : state.radioText === "ingredients"
-            ? recipe.instructions
-                .join("")
-                .toLowerCase()
-                .includes(payLoad.toLowerCase())
-            : recipe.instructions
-                .join("")
-                .toLowerCase()
-                .includes(payLoad.toLowerCase())
-        ),
+        allRecipes:
+          payLoad.length > 1
+            ? state?.allRecipes?.filter((recipe) =>
+                state.radioText === "name"
+                  ? recipe.title.toLowerCase().includes(payLoad.toLowerCase())
+                  : state.radioText === "ingredients"
+                  ? recipe.instructions
+                      .join("")
+                      .toLowerCase()
+                      .includes(payLoad.toLowerCase())
+                  : recipe.instructions
+                      .join("")
+                      .toLowerCase()
+                      .includes(payLoad.toLowerCase())
+              )
+            : recipe,
       };
+    case "edit_recipe":
+      return { ...state, allRecipes: payLoad };
   }
 };
 const RecipeProvider = ({ children }) => {
@@ -48,6 +53,11 @@ const RecipeProvider = ({ children }) => {
     dispatch({ type: "filter_recipes", payLoad: searchText });
   };
 
+  //other handlers
+  const editRecipeHandler = (updatedRecipe) => {
+    dispatch({ type: "edit_recipe", payLoad: updatedRecipe });
+  };
+
   return (
     <RecipeContext.Provider
       value={{
@@ -56,6 +66,7 @@ const RecipeProvider = ({ children }) => {
         setRadioTextHandler,
         setSearchTextHandler,
         filterRecipesHandler,
+        editRecipeHandler,
       }}
     >
       {children}
