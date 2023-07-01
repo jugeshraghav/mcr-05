@@ -78,9 +78,7 @@ export const RecipeModal = ({ recipe, show, onClose }) => {
               ></textarea>
             </div>
             <div>
-              <button onClick={() => editRecipeHandler(updatedRecipe)}>
-                Edit
-              </button>
+              <button>Edit</button>
               <button>Create</button>
               <button onClick={onClose}>Cancel</button>
             </div>
