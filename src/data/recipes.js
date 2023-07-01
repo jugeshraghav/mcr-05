@@ -1,6 +1,7 @@
 export const recipe = [
   {
     cuisine: "Indian",
+    title: "Chicken Curry",
     image:
       "https://images.pexels.com/photos/8992836/pexels-photo-8992836.jpeg?auto=compress&cs=tinysrgb&w=400",
     ingredients: [
@@ -34,6 +35,7 @@ export const recipe = [
   },
   {
     cuisine: "Italian",
+    title: "Spaghetti",
     image:
       "https://media.istockphoto.com/id/479271670/photo/traditional-italian-carbonara-pasta.jpg?b=1&s=612x612&w=0&k=20&c=ai7Fn6O8CR17_eF4ZuAMqx3RN-wEzYsryx4n47GbSeg=",
     ingredients: [
